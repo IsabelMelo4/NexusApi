@@ -1,6 +1,6 @@
 CREATE TABLE post_history(
     id serial PRIMARY KEY,
-    changeDate DATE NOT NULL,
+    changeDate TIMESTAMP NOT NULL,
     HourChange TIME NOT NULL,
     id_publication integer NOT NULL,
 

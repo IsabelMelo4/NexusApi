@@ -2,7 +2,7 @@ CREATE TABLE publication(
     id serial PRIMARY KEY,
     id_user UUID,
     text VARCHAR(100),
-    date_publication DATE,
+    date_publication TIMESTAMP,
     image bytea NOT NULL,
 
 

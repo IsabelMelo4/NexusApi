@@ -8,6 +8,7 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<UserModel, UUID> { //informo a enity que vai ser chamada e o tipo de id
 
     Optional<UserModel> findByUsername(String username);
+    Optional<UserModel> findById(UUID id);
     boolean existsByUsername(String username);
 
 }

@@ -1,4 +1,4 @@
-package com.isabel.NexusApi.dto.User;
+package com.isabel.NexusApi.dto;
 
 public class UserDto {
 
