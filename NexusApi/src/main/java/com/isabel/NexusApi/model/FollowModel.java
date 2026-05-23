@@ -3,28 +3,31 @@ package com.isabel.NexusApi.model;
 import jakarta.persistence.*;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
-@Entity(name = "seguidores")
-@Table(name = "/seguidores")
+@Entity
+@Table(name = "follower")
 public class FollowModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID Id;
     private String status;
+    private LocalDateTime date_follow;
 
-    public FollowModel(Integer id, String status, Date date_follow) {
+    public FollowModel(UUID id, String status, LocalDateTime date_follow) {
         Id = id;
         this.status = status;
         this.date_follow = date_follow;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         Id = id;
     }
 
@@ -36,14 +39,11 @@ public class FollowModel {
         this.status = status;
     }
 
-    public Date getDate_follow() {
+    public LocalDateTime getDate_follow() {
         return date_follow;
     }
 
-    public void setDate_follow(Date date_follow) {
+    public void setDate_follow(LocalDateTime date_follow) {
         this.date_follow = date_follow;
     }
-
-    private Date date_follow;
 }
-

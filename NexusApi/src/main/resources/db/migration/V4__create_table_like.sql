@@ -4,7 +4,7 @@ CREATE TABLE likes (
     id_publication INTEGER,
 
     CONSTRAINT fk_like_usuario
-        FOREIGN KEY (id_user) REFERENCES userTable(id),
+        FOREIGN KEY (id_user) REFERENCES user_table(id),
 
     CONSTRAINT fk_like_publication
         FOREIGN KEY (id_publication) REFERENCES publication(id)

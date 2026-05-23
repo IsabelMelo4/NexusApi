@@ -5,7 +5,7 @@
         text VARCHAR(255),
 
         CONSTRAINT fk_comment_usuario
-           FOREIGN KEY (id_user) REFERENCES userTable(id),
+           FOREIGN KEY (id_user) REFERENCES user_table(id),
 
         CONSTRAINT fk_comment_publication
             FOREIGN KEY (id_publication) REFERENCES publication(id)

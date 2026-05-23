@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
-@Entity(name = "usuario")
-@Table(name = "/usuario")
+@Entity
+@Table(name = "user_table")
 public class UserModel {
 
    @Id
@@ -17,17 +17,11 @@ public class UserModel {
    private String password;
    private String username;
 
-    public UserModel(UUID id, String name, String email, String password, String username) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.username = username;
-    }
-
     public UUID getId() {
         return id;
     }
+
+
 
     public void setId(UUID id) {
         this.id = id;

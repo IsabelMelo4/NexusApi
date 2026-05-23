@@ -7,7 +7,7 @@ CREATE TABLE publication(
 
 
     CONSTRAINT fk_id_user
-        FOREIGN KEY (id_user) REFERENCES userTable(id)
+        FOREIGN KEY (id_user) REFERENCES user_table(id)
 
 
 );

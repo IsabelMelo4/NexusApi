@@ -1,4 +1,4 @@
-CREATE TABLE userTable (
+CREATE TABLE user_table (
     id UUID PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
