@@ -27,7 +27,7 @@ public class PublicationController {
     @PostMapping
     public ResponseEntity create (@RequestBody PubliDto dto) {
 
-        UserModel userModel = userRepository.findById(dto.usuarioId()).orElseThrow();;
+        UserModel userModel = userRepository.findByUsername(dto.usuarioId()).orElseThrow();;
 
        var post = new PublicationModel();
 
