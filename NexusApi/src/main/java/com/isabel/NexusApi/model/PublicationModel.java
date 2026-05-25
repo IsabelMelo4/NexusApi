@@ -16,9 +16,10 @@ public class PublicationModel {
     private LocalDateTime datePublication;
     private String text;
 
+
     @ManyToOne
     @JoinColumn(name = "id_user")
-    private UserModel UserModel;
+    private UserModel userModel;
 
     public Integer getId() {
         return id;
@@ -45,10 +46,11 @@ public class PublicationModel {
     }
 
     public UserModel getUserModel() {
-        return UserModel;
+        return userModel;
     }
 
     public void setUserModel(UserModel userModel) {
-        UserModel = userModel;
+        this.userModel = userModel;
     }
 }
+

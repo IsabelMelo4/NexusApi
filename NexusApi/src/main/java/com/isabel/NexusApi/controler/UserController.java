@@ -1,5 +1,6 @@
 package com.isabel.NexusApi.controler;
 
+import com.isabel.NexusApi.dto.UserDto;
 import com.isabel.NexusApi.model.UserModel;
 import com.isabel.NexusApi.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
@@ -20,12 +21,13 @@ public class UserController {
 
     @GetMapping("/{username}")
         public ResponseEntity buscarUsuario (@PathVariable String username){
-        Optional user =  userRepository.findByUsername(username);
+        Optional <UserModel> user =  userRepository.findByUsername(username);
 
         if(user.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
         }
-        return ResponseEntity.status(HttpStatus.FOUND).body(user);
+        var response = new UserDto(user.get().getUsername());
+        return ResponseEntity.status(HttpStatus.FOUND).body(response);
     }
 
   @PostMapping

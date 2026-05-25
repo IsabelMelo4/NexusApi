@@ -1,19 +1,20 @@
 package com.isabel.NexusApi.controler;
 import com.isabel.NexusApi.dto.PubliDto;
+import com.isabel.NexusApi.dto.UserDto;
 import com.isabel.NexusApi.model.PublicationModel;
 import com.isabel.NexusApi.model.UserModel;
 import com.isabel.NexusApi.repository.PublicationRepository;
 import com.isabel.NexusApi.repository.UserRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/publication")
@@ -24,10 +25,31 @@ public class PublicationController {
     @Autowired
     UserRepository userRepository;
 
+    @GetMapping("/{usernamePubli}")
+    public ResponseEntity getPost(@PathVariable String usernamePubli){
+        Optional <UserModel> userPublication = userRepository.findByUsername(usernamePubli);
+        List<PublicationModel> publicationResponse = publicationRepository.findByUserModelUsername(usernamePubli);
+
+        if(userPublication.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+        }
+
+        if(publicationResponse.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario sem publicação");
+        }
+
+        var user = userPublication.get();
+        var publication = publicationResponse.get(0);
+
+
+       var response =new PubliDto(user.getUsername(), publication.getText(),publication.getDatePublication());
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @PostMapping
     public ResponseEntity create (@RequestBody PubliDto dto) {
 
-        UserModel userModel = userRepository.findByUsername(dto.usuarioId()).orElseThrow();;
+        UserModel userModel = userRepository.findByUsername(dto.user()).orElseThrow();;
 
        var post = new PublicationModel();
 
