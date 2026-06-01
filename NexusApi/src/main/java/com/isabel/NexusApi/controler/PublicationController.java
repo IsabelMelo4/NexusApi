@@ -13,8 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+
 
 @RestController
 @RequestMapping("/publication")
@@ -39,10 +42,13 @@ public class PublicationController {
         }
 
         var user = userPublication.get();
-        var publication = publicationResponse.get(0);
+        PublicationModel publication = null ;
+        List<PubliDto> response = new ArrayList<>();
 
-
-       var response =new PubliDto(user.getUsername(), publication.getText(),publication.getDatePublication());
+        for (Integer i= 0; i <  publicationResponse.size(); i++){
+            publication = publicationResponse.get(i);
+            response.add(new PubliDto(publication.getText(), user.getUsername(),publication.getDatePublication()));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -59,4 +65,33 @@ public class PublicationController {
 
       return ResponseEntity.status(HttpStatus.CREATED).body(publicationRepository.save(post));
 
-    }}
+    }
+
+    @DeleteMapping ("/{id}/{username}")
+    public ResponseEntity dellPost(@PathVariable Integer id, @PathVariable String username){
+        Optional <PublicationModel> publicationResponse = publicationRepository.findById(id);
+        Optional<UserModel> userResponse = userRepository.findByUsername(username);
+
+
+        if(publicationResponse.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Essa publicação não existe ");
+        }
+
+        if(userResponse.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não existe");
+        }
+
+        PublicationModel publication = publicationResponse.get();
+        UserModel user = userResponse.get();
+
+
+        if(!publication.getUserModel().getId().equals(user.getId())){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Essa publicação não existe ");
+        }
+
+       publicationRepository.delete(publication);
+        return ResponseEntity.status(HttpStatus.OK).body("publicação deletada");
+    }
+
+}
+
