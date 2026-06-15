@@ -1,5 +1,7 @@
 package com.isabel.NexusApi.repository;
 import java.util.Optional;
+
+import com.isabel.NexusApi.dto.UserDto;
 import com.isabel.NexusApi.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 

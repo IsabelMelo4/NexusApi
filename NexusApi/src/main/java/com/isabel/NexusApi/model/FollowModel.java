@@ -17,11 +17,14 @@ public class FollowModel {
     private String status;
     private LocalDateTime date_follow;
 
-    public FollowModel(UUID id, String status, LocalDateTime date_follow) {
-        Id = id;
-        this.status = status;
-        this.date_follow = date_follow;
-    }
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UserModel seguido;
+
+
+    @ManyToOne
+    @JoinColumn(name = "seguidor_id")
+    private UserModel seguidor;
 
     public UUID getId() {
         return Id;
@@ -45,5 +48,21 @@ public class FollowModel {
 
     public void setDate_follow(LocalDateTime date_follow) {
         this.date_follow = date_follow;
+    }
+
+    public UserModel getSeguido() {
+        return seguido;
+    }
+
+    public void setSeguido(UserModel seguido) {
+        this.seguido = seguido;
+    }
+
+    public UserModel getSeguidor() {
+        return seguidor;
+    }
+
+    public void setSeguidor(UserModel seguidor) {
+        this.seguidor = seguidor;
     }
 }
